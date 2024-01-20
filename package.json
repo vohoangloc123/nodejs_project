@@ -5,13 +5,14 @@
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon --inspect src/index.js",
-    "test": "https://github.com/vohoangloc123/nodejs_project.git",
-    "watch": "node-sass --watch src/resources/scss/ --output src/public/css/"
-    
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "node-sass --watch src/resources/scss/ --output src/public/css/",
+    "beautiful": "lint-staged",
+    "pre-commit": "lint-staged"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vohoangloc123/nodejs_project.git"
+    "url": "https://github.com/vohoangloc123/nodejs_project.git"
   },
   "keywords": [
     "node",
@@ -24,11 +25,23 @@
     "url": "https://github.com/vohoangloc123/nodejs_project/issues"
   },
   "homepage": "https://github.com/vohoangloc123/nodejs_project#readme",
+  "pre-commit": "lint-staged",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,scss,json}": "prettier --single-quote --trailing-comma all --write"
+  },
   "dependencies": {
     "express": "^4.18.2",
     "express-handlebars": "^7.1.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
     "node-sass": "^9.0.0",
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.2",
+    "prettier": "^3.2.4"
   },
   "devDependencies": {
     "morgan": "^1.10.0"
