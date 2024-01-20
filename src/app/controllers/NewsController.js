@@ -3,7 +3,7 @@ class NewsController {
   index(req, res) {
     res.render('news')
   }
-  show() {
+  show(req,res) {
     res.send('NEWS DETAIL')
   }
 }
