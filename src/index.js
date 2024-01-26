@@ -1,29 +1,34 @@
-const path = require('path')
-const express = require('express')
-const morgan = require('morgan')
-const handlebars = require('express-handlebars').engine
-const app = express()
+const path = require('path');
+const express = require('express');
+const morgan = require('morgan');
+const handlebars = require('express-handlebars').engine;
+const app = express();
+const db = require('./config/db');
+//conectDB
+db.connect();
 
-const route = require('./routes')
+const route = require('./routes');
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(
   express.urlencoded({
     extended: true,
   }),
-) //dung de lay du lieu tu form
+); //dung de lay du lieu tu form
 // app.use(morgan('combined'))
 //handle bars
-app.use(express.json())
+app.use(express.json());
 app.engine(
   'hbs',
   handlebars({
     extname: '.hbs', // de viet tat
   }),
-)
+);
 
-app.set('view engine', 'hbs') //dat web view engine la handlebar
-app.set('views', path.join(__dirname, 'resources/views'))
+app.set('view engine', 'hbs'); //dat web view engine la handlebar
+app.set('views', path.join(__dirname, 'resources', 'views'));
+//home, search, contact
 
-route(app)
-app.listen(3000)
+//route init
+route(app);
+app.listen(3000);

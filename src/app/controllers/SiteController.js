@@ -1,12 +1,20 @@
+const Course = require('../models/Course');
+const mongooseUtil = require('../../util/mongoose'); // Import the entire module
+const { multipleMongooseToObject } = mongooseUtil; // Use the specific property
+
 class SiteController {
-    // [GET] /news
-    index(req, res) {
-      res.render('home')
-    }
-    search(req,res) {
-      res.send('search')
-    }
+  index(req, res, next) {
+    // res.render('home')
+    Course.find({})
+      .then((courses) => {
+        res.render('home', { courses: multipleMongooseToObject(courses) });
+      })
+      .catch((err) => {
+        next(err);
+      });
   }
-  
-  module.exports = new SiteController()
-  
+  search(req, res) {
+    res.render('search');
+  }
+}
+module.exports = new SiteController();

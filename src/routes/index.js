@@ -1,16 +1,10 @@
-const newsRouter = require('./news')
+const newsRouter = require('./news');
+const siteRouter = require('./site');
+const courseRouter = require('./courses');
 function routes(app) {
-  app.get('/', function (req, res) {
-    res.render('home')
-  })
-  app.use('/news', newsRouter)
-  app.get('/search', function (req, res) {
-    // console.log(req.query);
-    res.render('search')
-  })
-  app.post('/search', function (req, res) {
-    console.log(req.body)
-    res.render('search')
-  })
+  // app.use('/news', newsRouter)
+
+  app.use('/', siteRouter);
+  app.use('/courses', courseRouter);
 }
-module.exports = routes
+module.exports = routes;
