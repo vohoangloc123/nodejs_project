@@ -4,10 +4,13 @@ const morgan = require('morgan');
 const handlebars = require('express-handlebars').engine;
 const app = express();
 const db = require('./config/db');
+//cho phương thức put
+const methodOverride = require('method-override')
 //conectDB
 db.connect();
 
 const route = require('./routes');
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
@@ -18,11 +21,18 @@ app.use(
 // app.use(morgan('combined'))
 //handle bars
 app.use(express.json());
+//cho phương thức put
+app.use(methodOverride('_method'))
 app.engine(
   'hbs',
   handlebars({
-    extname: '.hbs', // de viet tat
-  }),
+    extname: '.hbs',
+    helpers: {
+      sum: function(a, b) {
+        return a + b;
+      }
+    }
+  })  
 );
 
 app.set('view engine', 'hbs'); //dat web view engine la handlebar
