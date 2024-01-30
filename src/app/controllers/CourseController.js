@@ -1,6 +1,7 @@
 const Course = require('../models/Course');
 const mongooseUtil = require('../../util/mongoose'); // Import the entire module
 const { multipleMongooseToObject, mongooseToObject } = mongooseUtil;
+
 class CourseController {
   //[GET] /courses/:slug
    show(req, res, next) {
@@ -32,11 +33,23 @@ class CourseController {
   }
   //[DELETE] /course/:id
   delete(req, res, next) {
-      Course.deleteOne({ _id: req.params.id })
+      Course.delete({ _id: req.params.id })
     .then(() => res.redirect('back'))
     .catch(next);
-
   }
+  //[PATCH] /course/:id/restore
+  restore(req, res, next) {
+    Course.restore({ _id: req.params.id })
+    .then(() => res.redirect('back'))
+    .catch(next);
+  }
+  //[DELETE] /course/:id/force
+  forceDelete(req, res, next) {
+    Course.deleteOne({ _id: req.params.id })
+    .then(() => res.redirect('back'))
+    .catch(next);
+  }
+  
 
 }
 module.exports = new CourseController();

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+var mongoose_delete = require('mongoose-delete');
 
 const Course = new Schema({
   name: { type: String, maxLength: 255, required: true },
@@ -11,4 +12,8 @@ const Course = new Schema({
   level: { type: String, maxLength: 255 },
   slug: { type: String, slug: 'name', unique: true },
 });
+// Add plugin
+Course.plugin(mongoose_delete, {overrideMethods: 'all' });
+Course.plugin(mongoose_delete, { overrideMethods: true });
+Course.plugin(mongoose_delete, { deletedAt : true, deletedBy : true });
 module.exports = mongoose.model('Course', Course);
